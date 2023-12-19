@@ -18,14 +18,15 @@ func NewIPHashBalancer(hosts []string) *IPHashBalancer {
 // Retorna o host com base no hash do endereço IP do cliente
 func (ipb *IPHashBalancer) getHost(clientIP string) string {
 	// Calcula o hash MD5 do endereço IP
+	// Qualquer outro mecanismo de hashing pode ser utilizado
 	hasher := md5.New()
 	hasher.Write([]byte(clientIP))
 	hashBytes := hasher.Sum(nil)
 
 	// Calcula o index a partir dos 4 primeiros bytes do hash
 	// Transformamos ele em um Integer para facilitar o exemplo
-	// O inteiro resultante é usado para calcular um índice que corresponde
-	// a um dos servidores na lista de hosts.
+	// O resultado é um índice entre 0 e len(ipb.hosts) - 1
+	// que são os índices válidos para a nossa slice de hosts.
 	hashIndex := binary.BigEndian.Uint32(hashBytes[:4]) % uint32(len(ipb.hosts))
 	return ipb.hosts[hashIndex]
 }

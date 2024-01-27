@@ -16,6 +16,7 @@ const origem = "https://google.com.br"
 const cacheDir = "./cache"
 const port = 8080
 
+// Função que cria um hash da URL
 func generateHash(input string) string {
 	hash := sha1.New()
 	hash.Write([]byte(input))
@@ -84,13 +85,14 @@ func ProxyCacheHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
+	// Cria o diretório de armazenamento do cache
 	fmt.Println("Criando diretório de cache:", cacheDir)
 	if _, err := os.Stat(cacheDir); os.IsNotExist(err) {
 		os.Mkdir(cacheDir, os.ModePerm)
 	}
 
+	// Cria um server HTTP simples para fazer handling dos requests
 	fmt.Println("Iniciando Proxy")
-
 	http.HandleFunc("/", ProxyCacheHandler)
 
 	fmt.Println("Proxy iniciado na porta:", port)

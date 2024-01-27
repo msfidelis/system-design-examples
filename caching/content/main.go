@@ -92,7 +92,7 @@ func main() {
 	}
 
 	// Cria um server HTTP simples para fazer handling dos requests
-	fmt.Println("Iniciando Proxy")
+	fmt.Println("Iniciando Proxy para a origem:", origem)
 	http.HandleFunc("/", ProxyCacheHandler)
 
 	fmt.Println("Proxy iniciado na porta:", port)

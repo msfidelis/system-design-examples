@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"sync"
-	"time"
 )
 
 // Abstração de um Mecanismo Least Request
@@ -59,9 +58,6 @@ func main() {
 		host := leastRequest.getHost()
 		fmt.Printf("Requisição %d direcionada para: %s\n", i+1, host)
 	}
-
-	// Simula um pequeno delay para permitir que as goroutines terminem
-	time.Sleep(5 * time.Second)
 
 	fmt.Println("Distribuição de requisições executadas:", leastRequest.requests)
 }

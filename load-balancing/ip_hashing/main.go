@@ -42,7 +42,7 @@ func main() {
 	}
 
 	// Simula 30 Requisições
-	for i := 0; i < 30; i++ {
+	for i := 0; i < 20; i++ {
 		clientIP := clientIPs[i%len(clientIPs)]
 		host := ipHashBalancer.getHost(clientIP)
 		fmt.Printf("Requisição %d do IP %s direcionada para: %s\n", i+1, clientIP, host)

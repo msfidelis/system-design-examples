@@ -45,7 +45,7 @@ func main() {
 	randomBalancer := NewRandomBalancer(hosts)
 
 	// Simula 30 requisições
-	for i := 0; i < 30; i++ {
+	for i := 0; i < 10; i++ {
 		host := randomBalancer.getHost()
 		fmt.Printf("Requisição %d direcionada para: %s\n", i+1, host)
 	}

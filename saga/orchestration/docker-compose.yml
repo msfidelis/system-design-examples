@@ -1,0 +1,53 @@
+version: '3'
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:1.6
+    environment:
+      - COLLECTOR_ZIPKIN_HTTP_PORT=9411
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+      - "4317:4317"
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://localhost:9092,OUTSIDE://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT,
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "new_transaction:4:1,car:4:1,car_finish:4:1,flying:4:1,flying_finish:4:1,hotel:4:1,hotel_finish:4:1,payment:4:1,payment_finish:4:1,compensation:4:1"
+
+  travelsdb:
+    image: postgres:latest
+    container_name: traveldb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: travels
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: passwd123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    container_name: redisdb
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:

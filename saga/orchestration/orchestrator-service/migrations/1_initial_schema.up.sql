@@ -1,0 +1,10 @@
+CREATE TABLE state (
+    id VARCHAR(50) NOT NULL,
+    book SMALLINT DEFAULT 1,
+    flying SMALLINT DEFAULT 1,
+    hotel SMALLINT DEFAULT 1,
+    payment SMALLINT DEFAULT 1,
+    car SMALLINT DEFAULT 1,
+    complete SMALLINT DEFAULT 0,
+    PRIMARY KEY(id)
+);

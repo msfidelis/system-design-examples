@@ -31,6 +31,7 @@ func main() {
 	// ID do pedido que desejamos buscar
 	pedidoID := "1"
 
+	// Busca no cache pela chave criada
 	valor, err := rdb.Get(ctx, "produto:"+pedidoID).Result()
 
 	// Verifica se o pedido está ou não em cache

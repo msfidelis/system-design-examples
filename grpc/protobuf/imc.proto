@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package imc;
+
+option go_package = "service/imc";
+
+// O serviço IMCService oferece a operação de calcular o quadrado de um número.
+service IMCService {
+  // IMC calcula o quadrado de um número.
+  rpc Calcular (IMCRequest) returns (IMCResponse) {}
+}
+
+// IMCRequest contém o a altura e peso para o qual queremos calcular o IMC.
+message IMCRequest {
+  double weight = 1;
+  double height = 2;
+}
+
+// IMCResponse contém o resultado do cálculo do IMC informado.
+message IMCResponse {
+  double result = 1;
+}

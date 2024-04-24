@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/streadway/amqp"
 )
 
@@ -25,13 +26,13 @@ func main() {
 
 	// Criação da Exchange
 	err = ch.ExchangeDeclare(
-		"ecommerce.vendas.nova.venda", // Nome da exchange
-		"direct",                      // Tipo da exchange
-		true,                          // durable
-		false,                         // auto-deleted
-		false,                         // internal
-		false,                         // no-wait
-		nil,                           // arguments
+		"ecommerce.nova.venda", // Nome da exchange
+		"direct",               // Tipo da exchange
+		true,                   // durable
+		false,                  // auto-deleted
+		false,                  // internal
+		false,                  // no-wait
+		nil,                    // arguments
 	)
 	if err != nil {
 		fmt.Println("Falha ao construir a exchange", err)
@@ -55,24 +56,26 @@ func main() {
 	// Associando a Queue até a Exchange
 	// e informando a binding key para roteamento
 	err = ch.QueueBind(
-		q.Name,                        // Nome da fila
-		"cobrar",                      // Binding key de roteamento
-		"ecommerce.vendas.nova.venda", // Nome da exchange
-		false,                         // no-wait
-		nil,                           // arguments
+		q.Name,                 // Nome da fila
+		"cobrar",               // Binding key de roteamento
+		"ecommerce.nova.venda", // Nome da exchange
+		false,                  // no-wait
+		nil,                    // arguments
 	)
 
-	for i := 0; i < 30; i++ {
+	for i := 0; i < 3000000000; i++ {
+
+		id := uuid.New()
 
 		// Mensagem simples
-		body := fmt.Sprintf("venda:id:%v", i)
+		body := fmt.Sprintf("id:%v", id)
 
 		// Publicando a mensagem na exchange
 		err = ch.Publish(
-			"ecommerce.vendas.nova.venda", // exchange
-			"cobrar",                      // routing key (binding key)
-			false,                         // mandatory
-			false,                         // immediate
+			"ecommerce.nova.venda", // exchange
+			"cobrar",               // routing key (binding key)
+			false,                  // mandatory
+			false,                  // immediate
 			amqp.Publishing{
 				ContentType: "text/plain",
 				Body:        []byte(body),

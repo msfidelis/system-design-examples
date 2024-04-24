@@ -84,7 +84,7 @@ func main() {
 			fmt.Println("Falha ao publicar a mensagem na exchange", err)
 		}
 
-		fmt.Printf("Mensagem de venda enviada para a exchange ecommerce.vendas.nova.venda: %v\n", body)
+		fmt.Printf("Mensagem de venda enviada para a exchange ecommerce.nova.venda: %v\n", body)
 	}
 
 }

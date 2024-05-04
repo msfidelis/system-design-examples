@@ -130,7 +130,7 @@ func main() {
 		return
 	}
 
-	for i := 0; i < 3000000000; i++ {
+	for i := 0; i < 20; i++ {
 
 		routingKey := "faturamento.prioridade.default"
 		if rand.Float64() < 0.1 { // mock para dar 10% de chance de uma mensagem ser encaminhada para a queue prioritária

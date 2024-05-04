@@ -105,7 +105,7 @@ func main() {
 		nil,                    // arguments
 	)
 
-	for i := 0; i < 3000000000; i++ {
+	for i := 0; i < 10; i++ {
 
 		id := uuid.New()
 
